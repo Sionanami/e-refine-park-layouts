@@ -1,0 +1,137 @@
+{
+  "schema_version": 3,
+  "meta": {
+    "title": "最终主算法：g18_a60 植被 + s2铺装护水 + access_stub_area=40",
+    "pavement_crumb_area_px": 96,
+    "pavement_denoise_changed_mean_px_ref": 1155,
+    "coverage_priority": "fixed/A > building > road > pavement > water > plant/lawn",
+    "pipeline_order": [
+      "1_pavement_water_internal_green_fill",
+      "2_pavement_water_denoise_crumbs_to_lawn",
+      "3_planar_boundary_smooth_road_protected",
+      "4_building_contour_hybrid_fill_top_mask",
+      "5_vegetation_circle_packing_radius_jitter",
+      "6_road_connect_second_only_to_building"
+    ],
+    "disappeared_pixel_policy": "轮廓收缩释放的像素一律降级为草坪（不得升为道路）；建筑可覆盖道路；道路不可被铺装/水体/植被损害；建筑闭孔填回轮廓内部",
+    "building_complexity": "Q=4πA/P² < complex_isoperimetric_q_max 或 solidity < complex_solidity_max → CURVE_EXEMPT+hybrid",
+    "vegetation_packing": "inscribed circles: R=max(1, floor(D)); large components repeat on the uncovered remainder; one centre below large_component_area_px; uncovered plant becomes lawn",
+    "road_policy": "dir_tol=45, gap=40, links=2, T=on, width_reg half[1,4]; pavement_protect_water; access_stub_area_px=40（贴楼/铺装小斑禁路–路，抑分叉）; prune_spur=0",
+    "notes": "2026-10-26 定稿：在 s2 基础上选定 stub40；碎斑强剪关闭",
+    "freeze_tag": "s2_stub40_20261026",
+    "base_freeze_tag": "g18_a60_20261026"
+  },
+  "r1": {
+    "distance_metric": "rgb_l2",
+    "assignment": "weighted_argmin",
+    "plant_dist_weight": 0.55,
+    "green_dist_weight": 0.72,
+    "pav_over_road_margin": 28.0,
+    "absolute_distance_tau": null
+  },
+  "r2": {
+    "road_color_tolerance": 30,
+    "road_copy_tolerance": 40,
+    "legacy_max_width_px": 2,
+    "road_revision": {
+      "allow_cross_vegetation": true,
+      "morph_close_px": 7,
+      "connect_max_gap_px": 40.0,
+      "max_links_per_endpoint": 2,
+      "direction_tolerance_deg": 45.0,
+      "branch_trace_px": 8,
+      "enable_t_junction": true,
+      "use_raw_guide": true,
+      "reject_third_road_contact": true,
+      "enable_building_proxy": true,
+      "pavement_contact_radius_px": 2,
+      "enable_width_regularization": true,
+      "width_half_min_px": 1.0,
+      "width_half_max_px": 4.0,
+      "access_stub_area_px": 40,
+      "prune_spur_max_px": 0,
+      "prune_min_area_px": 14,
+      "prune_max_span_px": 10
+    },
+    "native_controls": {
+      "candidate_search_radius_px": {
+        "value": null,
+        "argument": null
+      },
+      "direction_tolerance_deg": {
+        "value": null,
+        "argument": null
+      },
+      "connection_cost_weights": {
+        "value": null,
+        "argument": null
+      },
+      "local_width_threshold_px": {
+        "value": null,
+        "argument": null
+      }
+    },
+    "vegetation": {
+      "method": "three_branch_noise_small_cluster_edt",
+      "circle_packing_enabled": true,
+      "min_center_dist_px": 16.0,
+      "large_radius_min_px": 8.0,
+      "small_min_center_dist_px": 8.0,
+      "small_radius_min_px": 2.0,
+      "use_orange_radius_cap": false,
+      "clump_close_px": 0.0,
+      "clear_r1_plants_first": false,
+      "large_component_area_px": 24.0,
+      "noise_area_max_px": 24.0,
+      "min_isolated_area_px": 40.0,
+      "crown_jitter": 0.3,
+      "rng_seed": 42,
+      "enable_lawn_clump": false,
+      "road_relax_px": 2.0,
+      "circle_smooth_window": 41,
+      "circle_smooth_passes": 5,
+      "circle_smooth_band_px": 12,
+      "circle_smooth_close_px": 18,
+      "circle_smooth_min_area_px": 60,
+      "circle_smooth_hole_max_px": 120
+    },
+    "surface": {
+      "enable_edge_despeckle": true,
+      "enable_micro_holes": true,
+      "enable_noise_crumbs": true,
+      "edge_kernel_px": 9,
+      "edge_iterations": 4,
+      "boundary_band_px": 5,
+      "pavement_crumb_area_px": 96,
+      "water_crumb_area_px": 48,
+      "pavement_hole_area_px": 96,
+      "water_hole_area_px": 48,
+      "building_crumb_area_px": 48,
+      "enable_internal_green_fill": true,
+      "pavement_internal_green_max_px": 240,
+      "water_internal_green_max_px": 72,
+      "enable_planar_boundary_smooth": true,
+      "planar_smooth_kernel_px": 7,
+      "planar_smooth_iterations": 2,
+      "planar_smooth_band_px": 4,
+      "pavement_protect_water": true
+    },
+    "building": {
+      "enable_conditional_ortho": true,
+      "enable_hybrid_curve_smooth": true,
+      "max_hole_area_px": 400,
+      "max_crumb_area_px": 48,
+      "edge_kernel_px": 5,
+      "boundary_band_px": 3,
+      "straight_dev_px": 2.0,
+      "corner_angle_deg": 28.0,
+      "curve_smooth_iters": 4,
+      "hybrid_band_px": 8,
+      "curve_edge_frac": 0.35,
+      "force_ortho_solidity": 0.85,
+      "complex_isoperimetric_q_max": 0.35,
+      "complex_solidity_max": 0.78,
+      "complex_preclose_px": 5
+    }
+  }
+}

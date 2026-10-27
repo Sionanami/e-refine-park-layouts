@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying manuscript."
+title: "E-Refine code for quantitative assessment of generative park layouts"
+version: "1.0.0"
+date-released: "2026-10-27"
+license: "CC-BY-NC-4.0"
+authors:
+  - family-names: Ni
+    given-names: Bingbing
+    affiliation: Beijing Forestry University
+  - family-names: Liu
+    given-names: Chumin
+    affiliation: Beijing Forestry University
+  - family-names: Guo
+    given-names: Jiatong
+    affiliation: Beijing Forestry University
+  - family-names: Jiang
+    given-names: Jie
+    affiliation: Beijing Forestry University
+  - family-names: Zhao
+    given-names: Jing
+    affiliation: Beijing Forestry University
+repository-code: "https://github.com/Sionanami/e-refine-park-layouts"

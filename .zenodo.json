@@ -1,0 +1,15 @@
+{
+  "title": "E-Refine: code for semantic normalization and structural refinement of generative park layouts",
+  "upload_type": "software",
+  "description": "Source code for the E-Refine release used to refine Stable Diffusion 1.5 park layouts and to compute the reported semantic and structural metrics. The archive contains the R1/R2 implementation, the frozen parameter file, evaluation scripts, and the Stable Diffusion 1.5 LoRA/adapter training and inference scripts. It does not contain model weights, images, or annotations. Frozen R1 assigns every editable pixel by weighted RGB L2 nearest colour (plant weight 0.55, green weight 0.72, pavement-over-road margin 28). No absolute-distance rejection threshold is applied.",
+  "version": "1.0.0",
+  "license": "cc-by-nc-4.0",
+  "keywords": ["urban park layout", "semantic refinement", "Stable Diffusion", "spatial metrics"],
+  "creators": [
+    {"name": "Ni, Bingbing", "affiliation": "Beijing Forestry University"},
+    {"name": "Liu, Chumin", "affiliation": "Beijing Forestry University"},
+    {"name": "Guo, Jiatong", "affiliation": "Beijing Forestry University"},
+    {"name": "Jiang, Jie", "affiliation": "Beijing Forestry University"},
+    {"name": "Zhao, Jing", "affiliation": "Beijing Forestry University"}
+  ]
+}

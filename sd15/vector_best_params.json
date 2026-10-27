@@ -1,0 +1,64 @@
+{
+  "params": {
+    "scale": 1,
+    "road_tol": 10,
+    "road_close": 0,
+    "road_open": 0,
+    "spur_len": 2,
+    "link_dist": 8,
+    "link_cos": 0.15,
+    "bld_tol": 18,
+    "bld_min_area": 25,
+    "poly_tol": 1.2,
+    "plant_tol": 14,
+    "plant_min_area": 10,
+    "plant_max_area": 120,
+    "plant_circ": 0.55,
+    "water_tol": 14,
+    "water_min_area": 30
+  },
+  "train_score": 4.346931860239273,
+  "gates": {
+    "road_cover_mean_min": 0.78,
+    "ep100_mean_max": 12.0,
+    "road_rate_min": 0.9,
+    "bld_rate_min": 0.8,
+    "plant_med_min": 15,
+    "plant_med_max": 100,
+    "ep_median_max": 35
+  },
+  "gates_passed": true,
+  "train": {
+    "n": 89,
+    "road_cover_mean": 0.9002334237397501,
+    "ep100_mean": 9.14278394993663,
+    "ep_median": 30.0,
+    "skel_median": 395.0,
+    "road_rate": 0.9213483146067416,
+    "bld_rate": 0.8314606741573034,
+    "plant_median": 20.0,
+    "building_median": 3.0,
+    "water_median": 1.0,
+    "mean_plant_circ": 0.923834344844532,
+    "road_lines_median": 22.0
+  },
+  "val": {
+    "n": 10,
+    "road_cover_mean": 0.9618326277213844,
+    "ep100_mean": 7.967246465241677,
+    "ep_median": 30.5,
+    "skel_median": 837.5,
+    "road_rate": 1.0,
+    "bld_rate": 0.9,
+    "plant_median": 44.5,
+    "building_median": 5.0,
+    "water_median": 3.0,
+    "mean_plant_circ": 0.9687951637440199,
+    "road_lines_median": 36.5
+  },
+  "v1_reference": {
+    "train_ep_median": 69,
+    "train_skel_median": 441,
+    "note": "v1 had no prune/link/orthogonal/circ filter"
+  }
+}
